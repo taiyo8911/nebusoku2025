@@ -1,73 +1,544 @@
-// 描画設定をオブジェクトとして定義
-const drawSettings = {
-    fontSize: 30,
-    color: "white",
-    count: 5, // 描画する文字の数
-    height: 50,
-    fontFamily: "Arial",
-    fontWeight: "bold",
-    spacing: 50, // 各文字の間隔
-    speed: 2 // スライド速度
+/**
+ * 3カラムグリッドレイアウト用アニメーションとインタラクション
+ * Lack of Sleep イベントサイト
+ */
+
+// 設定オブジェクト
+const CONFIG = {
+    // アニメーション設定
+    animations: {
+        staggerDelay: 100, // ms
+        duration: 300,     // ms
+        easing: 'ease-out'
+    },
+
+    // インタラクション設定
+    interactions: {
+        hoverDelay: 50,    // ms
+        clickEffect: true,
+        soundEnabled: false // 将来的にサウンド追加時用
+    },
+
+    // レスポンシブブレークポイント
+    breakpoints: {
+        mobile: 768,
+        tablet: 1200
+    }
 };
 
-// キャンバスの初期化と描画関数
-function drawSlidingChars(settings) {
-    const canvases = document.querySelectorAll("canvas"); // すべてのキャンバスを取得
+/**
+ * DOMContentLoaded後の初期化
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    try {
+        initializeAnimations();
+        initializeInteractions();
+        initializeResponsiveFeatures();
+        initializeAccessibility();
+        initializePerformanceOptimizations();
 
-    canvases.forEach((canvas) => {
-        const text = canvas.getAttribute("data-char"); // data-char属性から文字を取得
-        const {
-            fontSize,
-            color,
-            count,
-            height,
-            fontFamily,
-            fontWeight,
-            spacing,
-            speed
-        } = settings;
+        console.log('Grid layout initialized successfully');
+    } catch (error) {
+        console.error('Initialization error:', error);
+    }
+});
 
-        // キャンバスの幅を設定（文字のセットが途切れないように十分な幅を設定）
-        // 画面幅が大きい場合は、countの数を増やすことで文字のセットを増やす
-        canvas.width = (count + 1) * spacing;
-        canvas.height = height;
-        const ctx = canvas.getContext("2d");
+/**
+ * 各要素のアニメーション初期化
+ */
+function initializeAnimations() {
+    // ページロード時のフェードインアニメーション
+    animateOnLoad();
 
-        // 描画スタイルを設定
-        ctx.fillStyle = color;
-        ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+    // スクロール時のアニメーション
+    initializeScrollAnimations();
 
-        let offset = 0; // アニメーションの開始位置
+    // プログラムアイテムのスタガードアニメーション
+    initializeStaggeredAnimations();
+}
 
-        // アニメーションを描画する関数
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // キャンバスをクリア
+/**
+ * ページロード時のアニメーション
+ */
+function animateOnLoad() {
+    const elements = [
+        '.main-header',
+        '.headliner-sidebar',
+        '.main-program',
+        '.info-sidebar'
+    ];
 
-            // 2セットの文字を描画して途切れないようにする
-            for (let j = 0; j < 2; j++) {
-                // 2セットを描画
-                for (let i = 0; i < count; i++) {
-                    const x = i * spacing + offset - j * count * spacing; // 文字のセットが連続するように配置
-                    const y = (canvas.height + fontSize) / 2 - 5; // y座標を中央に配置
-                    ctx.fillText(text, x, y); // 文字を描画
-                }
-            }
+    elements.forEach((selector, index) => {
+        const element = document.querySelector(selector);
+        if (element) {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
 
-            offset += speed; // スライド速度に応じて位置を更新
-
-            // 位置が1セット分移動したらリセット
-            if (offset >= count * spacing) {
-                offset = 0;
-            }
-
-            // 再度アニメーションを呼び出す
-            requestAnimationFrame(animate);
+            setTimeout(() => {
+                element.style.transition = `opacity ${CONFIG.animations.duration}ms ${CONFIG.animations.easing}, transform ${CONFIG.animations.duration}ms ${CONFIG.animations.easing}`;
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, index * CONFIG.animations.staggerDelay);
         }
-
-        // アニメーションを開始
-        animate();
     });
 }
 
-// 描画関数の実行
-drawSlidingChars(drawSettings);
+/**
+ * スクロール時のアニメーション
+ */
+function initializeScrollAnimations() {
+    // Intersection Observer for scroll-triggered animations
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -10% 0px'
+        });
+
+        // 監視対象要素
+        const targets = document.querySelectorAll('.program-item, .stat-item, .headliner-song');
+        targets.forEach(target => {
+            target.classList.add('animate-ready');
+            observer.observe(target);
+        });
+    }
+}
+
+/**
+ * プログラムアイテムのスタガードアニメーション
+ */
+function initializeStaggeredAnimations() {
+    const programItems = document.querySelectorAll('.program-item');
+
+    programItems.forEach((item, index) => {
+        item.style.animationDelay = `${index * 50}ms`;
+        item.classList.add('stagger-item');
+    });
+}
+
+/**
+ * インタラクション機能の初期化
+ */
+function initializeInteractions() {
+    // 楽曲アイテムのクリックエフェクト
+    initializeSongInteractions();
+
+    // プログラムアイテムのホバーエフェクト
+    initializeProgramHover();
+
+    // 統計アイテムのカウンターアニメーション
+    initializeStatCounters();
+
+    // スムーズスクロール
+    initializeSmoothScroll();
+}
+
+/**
+ * 楽曲アイテムのインタラクション
+ */
+function initializeSongInteractions() {
+    const songItems = document.querySelectorAll('.song-compact, .headliner-song');
+
+    songItems.forEach(item => {
+        // クリックエフェクト
+        item.addEventListener('click', function (e) {
+            if (CONFIG.interactions.clickEffect) {
+                createRippleEffect(e, this);
+            }
+
+            // 楽曲情報の表示（将来的な機能）
+            const songName = this.textContent.trim();
+            console.log(`Selected song: ${songName}`);
+        });
+
+        // ホバーエフェクト
+        item.addEventListener('mouseenter', function () {
+            this.style.transform = 'scale(1.05) translateY(-2px)';
+        });
+
+        item.addEventListener('mouseleave', function () {
+            this.style.transform = '';
+        });
+    });
+}
+
+/**
+ * リップルエフェクトの作成
+ */
+function createRippleEffect(event, element) {
+    const ripple = document.createElement('span');
+    const rect = element.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+
+    ripple.style.cssText = `
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(88, 166, 255, 0.3);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        left: ${x}px;
+        top: ${y}px;
+        width: ${size}px;
+        height: ${size}px;
+        pointer-events: none;
+    `;
+
+    // リップルアニメーションのCSS追加
+    if (!document.querySelector('#ripple-style')) {
+        const style = document.createElement('style');
+        style.id = 'ripple-style';
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    element.style.position = 'relative';
+    element.style.overflow = 'hidden';
+    element.appendChild(ripple);
+
+    setTimeout(() => {
+        ripple.remove();
+    }, 600);
+}
+
+/**
+ * プログラムアイテムのホバーエフェクト
+ */
+function initializeProgramHover() {
+    const programItems = document.querySelectorAll('.program-item');
+
+    programItems.forEach(item => {
+        item.addEventListener('mouseenter', function () {
+            // 他のアイテムを少し暗くする
+            programItems.forEach(otherItem => {
+                if (otherItem !== this) {
+                    otherItem.style.opacity = '0.7';
+                }
+            });
+        });
+
+        item.addEventListener('mouseleave', function () {
+            // 全てのアイテムの透明度を戻す
+            programItems.forEach(otherItem => {
+                otherItem.style.opacity = '';
+            });
+        });
+    });
+}
+
+/**
+ * 統計カウンターアニメーション
+ */
+function initializeStatCounters() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+
+    const animateCounter = (element, target) => {
+        const start = 0;
+        const increment = target / 30; // 30フレームで完了
+        let current = start;
+
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = target;
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current);
+            }
+        }, 50);
+    };
+
+    // Intersection Observerで統計が見えた時にアニメーション開始
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const value = target.textContent.replace(/[^\d]/g, '');
+                    if (value) {
+                        animateCounter(target, parseInt(value));
+                    }
+                    observer.unobserve(target);
+                }
+            });
+        });
+
+        statNumbers.forEach(stat => observer.observe(stat));
+    }
+}
+
+/**
+ * スムーズスクロール機能
+ */
+function initializeSmoothScroll() {
+    const links = document.querySelectorAll('a[href^="#"]');
+
+    links.forEach(link => {
+        link.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                e.preventDefault();
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
+/**
+ * レスポンシブ機能の初期化
+ */
+function initializeResponsiveFeatures() {
+    let resizeTimeout;
+
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            handleResponsiveChanges();
+        }, 250);
+    });
+
+    // 初期チェック
+    handleResponsiveChanges();
+}
+
+/**
+ * レスポンシブ変更の処理
+ */
+function handleResponsiveChanges() {
+    const width = window.innerWidth;
+    const body = document.body;
+
+    // モバイル・タブレット・デスクトップの判定
+    body.classList.remove('mobile', 'tablet', 'desktop');
+
+    if (width <= CONFIG.breakpoints.mobile) {
+        body.classList.add('mobile');
+        adjustMobileLayout();
+    } else if (width <= CONFIG.breakpoints.tablet) {
+        body.classList.add('tablet');
+        adjustTabletLayout();
+    } else {
+        body.classList.add('desktop');
+        adjustDesktopLayout();
+    }
+}
+
+/**
+ * モバイルレイアウト調整
+ */
+function adjustMobileLayout() {
+    // モバイル特有の調整
+    const programItems = document.querySelectorAll('.program-item');
+    programItems.forEach(item => {
+        item.style.transform = ''; // ホバーエフェクトを無効化
+    });
+}
+
+/**
+ * タブレットレイアウト調整
+ */
+function adjustTabletLayout() {
+    // タブレット特有の調整
+    console.log('Tablet layout applied');
+}
+
+/**
+ * デスクトップレイアウト調整
+ */
+function adjustDesktopLayout() {
+    // デスクトップ特有の調整
+    console.log('Desktop layout applied');
+}
+
+/**
+ * アクセシビリティ機能の初期化
+ */
+function initializeAccessibility() {
+    // キーボードナビゲーション
+    initializeKeyboardNavigation();
+
+    // フォーカス管理
+    initializeFocusManagement();
+
+    // スクリーンリーダー対応
+    initializeAriaLabels();
+}
+
+/**
+ * キーボードナビゲーション
+ */
+function initializeKeyboardNavigation() {
+    const focusableElements = document.querySelectorAll(
+        '.song-compact, .headliner-song, .venue-link, .program-item'
+    );
+
+    focusableElements.forEach(element => {
+        // タブインデックスを設定
+        if (!element.hasAttribute('tabindex')) {
+            element.setAttribute('tabindex', '0');
+        }
+
+        // Enterキーでクリックイベントを発火
+        element.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+}
+
+/**
+ * フォーカス管理
+ */
+function initializeFocusManagement() {
+    // フォーカス時のスタイル調整
+    const focusableElements = document.querySelectorAll(
+        '.song-compact, .headliner-song, .program-item'
+    );
+
+    focusableElements.forEach(element => {
+        element.addEventListener('focus', function () {
+            this.style.outline = '2px solid var(--accent-blue)';
+            this.style.outlineOffset = '2px';
+        });
+
+        element.addEventListener('blur', function () {
+            this.style.outline = '';
+            this.style.outlineOffset = '';
+        });
+    });
+}
+
+/**
+ * ARIA ラベルの初期化
+ */
+function initializeAriaLabels() {
+    // 楽曲アイテムにaria-labelを追加
+    const songItems = document.querySelectorAll('.song-compact, .headliner-song');
+    songItems.forEach(item => {
+        const songName = item.textContent.trim();
+        item.setAttribute('aria-label', `楽曲: ${songName}`);
+        item.setAttribute('role', 'button');
+    });
+
+    // プログラムアイテムにaria-labelを追加
+    const programItems = document.querySelectorAll('.program-item');
+    programItems.forEach(item => {
+        const bandName = item.querySelector('.band-name')?.textContent.trim();
+        const timeSlot = item.querySelector('.time-slot')?.textContent.trim();
+        if (bandName && timeSlot) {
+            item.setAttribute('aria-label', `${timeSlot} ${bandName}のパフォーマンス`);
+        }
+    });
+}
+
+/**
+ * パフォーマンス最適化の初期化
+ */
+function initializePerformanceOptimizations() {
+    // 画像の遅延読み込み（将来的に画像追加時用）
+    initializeLazyLoading();
+
+    // メモリリーク防止
+    initializeMemoryManagement();
+
+    // パフォーマンス監視
+    initializePerformanceMonitoring();
+}
+
+/**
+ * 遅延読み込みの初期化
+ */
+function initializeLazyLoading() {
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        imageObserver.unobserve(img);
+                    }
+                }
+            });
+        });
+
+        const lazyImages = document.querySelectorAll('img[data-src]');
+        lazyImages.forEach(img => imageObserver.observe(img));
+    }
+}
+
+/**
+ * メモリ管理
+ */
+function initializeMemoryManagement() {
+    // ページ離脱時のクリーンアップ
+    window.addEventListener('beforeunload', function () {
+        // イベントリスナーのクリーンアップ
+        document.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', handleResize);
+
+        console.log('Memory cleanup completed');
+    });
+}
+
+/**
+ * パフォーマンス監視
+ */
+function initializePerformanceMonitoring() {
+    if ('performance' in window) {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loadTime = performance.now();
+                console.log(`Page load time: ${loadTime.toFixed(2)}ms`);
+
+                if (loadTime > 3000) {
+                    console.warn('Page load time is slow. Consider optimization.');
+                }
+            }, 0);
+        });
+    }
+}
+
+/**
+ * エラーハンドリング
+ */
+window.addEventListener('error', function (event) {
+    console.error('JavaScript error occurred:', {
+        message: event.message,
+        filename: event.filename,
+        lineno: event.lineno,
+        colno: event.colno,
+        error: event.error
+    });
+});
+
+// モジュールパターンでの公開（必要に応じて）
+window.GridLayout = {
+    CONFIG,
+    initializeAnimations,
+    initializeInteractions,
+    createRippleEffect
+};
+
+console.log('Grid animation script loaded successfully');

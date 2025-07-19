@@ -1,0 +1,658 @@
+/* ===== Webフォント ===== */
+@font-face {
+    font-family: "JF-Dot-K14";
+    src: url("../fonts/JF-Dot-K14.ttf") format("truetype");
+    font-display: swap;
+}
+
+/* ===== CSS変数 ===== */
+:root {
+    --bg-dark: #0d1117;
+    --bg-medium: #161b22;
+    --bg-light: #21262d;
+    --accent-blue: #58a6ff;
+    --accent-purple: #bc8cff;
+    --accent-green: #7ee787;
+    --accent-orange: #ffa657;
+    --text-primary: #f0f6fc;
+    --text-secondary: #8b949e;
+    --border-color: #30363d;
+    --hover-bg: #262c36;
+    --shadow-light: 0 8px 24px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.2);
+    --transition-smooth: all 0.3s ease;
+    --border-radius-sm: 8px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 20px;
+}
+
+/* ===== 基本設定 ===== */
+* {
+    font-family: "JF-Dot-K14", serif;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ===== ヘッダー ===== */
+.main-header {
+    background: linear-gradient(135deg, var(--bg-medium) 0%, var(--bg-dark) 100%);
+    padding: 60px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+/* ===== ロゴセクション ===== */
+.logo-section {
+    text-align: center;
+}
+
+.main-logo {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+}
+
+.logo-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* ===== イベント詳細 ===== */
+.event-details {
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 30px;
+    box-shadow: var(--shadow-medium);
+}
+
+.details-title {
+    color: var(--accent-blue);
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    color: var(--text-secondary);
+    font-weight: bold;
+}
+
+.detail-value {
+    color: var(--text-primary);
+}
+
+.free-notice {
+    text-align: center;
+    margin-top: 15px;
+    color: var(--accent-green);
+    font-weight: bold;
+}
+
+/* ===== 会場セクション ===== */
+.venue-section {
+    text-align: center;
+}
+
+.venue-card {
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 20px;
+}
+
+.venue-title {
+    color: var(--accent-green);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.venue-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.venue-link {
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.venue-link:hover {
+    color: var(--accent-purple);
+    text-decoration: underline;
+}
+
+.venue-tel {
+    color: var(--accent-green);
+}
+
+/* ===== メインコンテンツグリッド ===== */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: calc(100vh - 200px);
+}
+
+/* ===== 左サイドバー - ヘッドライナー ===== */
+.headliner-sidebar {
+    background: var(--bg-medium);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 30px;
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+.headliner-title {
+    color: var(--accent-orange);
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(255, 166, 87, 0.3);
+}
+
+.headliner-band {
+    background: linear-gradient(135deg, rgba(255, 166, 87, 0.1) 0%, rgba(188, 140, 255, 0.1) 100%);
+    border: 1px solid var(--accent-orange);
+    border-radius: var(--border-radius-md);
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.headliner-band-name {
+    color: var(--accent-orange);
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.headliner-songs {
+    display: grid;
+    gap: 8px;
+}
+
+.headliner-song {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 166, 87, 0.2);
+    border-radius: var(--border-radius-sm);
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 0.85rem;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.headliner-song:hover {
+    background: rgba(255, 166, 87, 0.1);
+    border-color: var(--accent-orange);
+    transform: translateY(-2px);
+}
+
+/* ===== 中央メインエリア - プログラム ===== */
+.main-program {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.day-container {
+    background: var(--bg-medium);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 30px;
+    box-shadow: var(--shadow-light);
+}
+
+.day-header {
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.programs-list {
+    display: grid;
+    gap: 20px;
+}
+
+.program-item {
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 20px;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.program-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple));
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.program-item:hover::before {
+    transform: scaleY(1);
+}
+
+.program-item:hover {
+    background: var(--hover-bg);
+    border-color: var(--accent-blue);
+    transform: translateX(8px);
+}
+
+.program-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.band-name {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.time-slot {
+    background: var(--accent-blue);
+    color: var(--bg-dark);
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.songs-compact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+}
+
+.song-compact {
+    background: rgba(88, 166, 255, 0.1);
+    border: 1px solid rgba(88, 166, 255, 0.2);
+    border-radius: var(--border-radius-sm);
+    padding: 6px 10px;
+    text-align: center;
+    font-size: 0.8rem;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.song-compact:hover {
+    background: rgba(88, 166, 255, 0.2);
+    border-color: var(--accent-blue);
+    transform: scale(1.05);
+}
+
+/* ===== 右サイドバー - 情報 ===== */
+.info-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-card {
+    background: var(--bg-medium);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 20px;
+    height: fit-content;
+}
+
+.info-card.sticky {
+    position: sticky;
+    top: 20px;
+}
+
+.info-card-title {
+    color: var(--accent-green);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.stat-item {
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: 15px;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.stat-item:hover {
+    border-color: var(--accent-green);
+    transform: translateY(-2px);
+}
+
+.stat-number {
+    color: var(--accent-green);
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: block;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.notes-section {
+    background: rgba(126, 231, 135, 0.1);
+    border: 1px solid var(--accent-green);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.notes-title {
+    color: var(--accent-green);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.notes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notes-list li {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    padding-left: 15px;
+    position: relative;
+}
+
+.notes-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent-green);
+    font-weight: bold;
+}
+
+/* ===== フッター ===== */
+.footer-grid {
+    background: var(--bg-medium);
+    border-top: 1px solid var(--border-color);
+    padding: 40px 20px;
+    margin-top: 60px;
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.credits {
+    text-align: center;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.credits strong {
+    color: var(--accent-blue);
+}
+
+.powered-by {
+    text-align: center;
+    color: var(--accent-orange);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* ===== レスポンシブデザイン ===== */
+@media (max-width: 1200px) {
+
+    .header-grid,
+    .content-grid,
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .headliner-sidebar,
+    .info-card.sticky {
+        position: static;
+    }
+
+    .program-item:hover {
+        transform: none;
+    }
+
+    .main-program {
+        order: 1;
+    }
+
+    .headliner-sidebar {
+        order: 2;
+    }
+
+    .info-sidebar {
+        order: 3;
+    }
+}
+
+@media (max-width: 768px) {
+    .songs-compact {
+        grid-template-columns: 1fr;
+    }
+
+    .program-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .day-header {
+        font-size: 1.5rem;
+    }
+
+    .header-grid {
+        gap: 20px;
+    }
+
+    .main-header {
+        padding: 40px 20px;
+    }
+
+    .content-grid {
+        padding: 0 15px;
+        gap: 20px;
+    }
+
+    .headliner-sidebar,
+    .day-container,
+    .info-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-logo {
+        font-size: 1.5rem;
+    }
+
+    .day-header {
+        font-size: 1.3rem;
+    }
+
+    .band-name {
+        font-size: 1rem;
+    }
+
+    .time-slot {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+
+    .song-compact {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+
+    .headliner-song {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== スクロールバーカスタマイズ ===== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-blue);
+}
+
+/* ===== パフォーマンス最適化 ===== */
+.program-item,
+.song-compact,
+.headliner-song,
+.stat-item {
+    will-change: transform;
+}
+
+/* ===== アクセシビリティ ===== */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ===== プリント用スタイル ===== */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .header-grid,
+    .content-grid,
+    .footer-content {
+        grid-template-columns: 1fr !important;
+    }
+
+    .program-item,
+    .headliner-band,
+    .info-card {
+        border: 1px solid #000 !important;
+        background: white !important;
+    }
+
+    .day-header,
+    .band-name {
+        color: black !important;
+    }
+
+    .time-slot {
+        background: #000 !important;
+        color: white !important;
+    }
+}
+
+/* ===== フォーカススタイル ===== */
+.song-compact:focus,
+.headliner-song:focus,
+.venue-link:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+/* ===== セレクション色 ===== */
+::selection {
+    background: var(--accent-blue);
+    color: var(--bg-dark);
+}
+
+::-moz-selection {
+    background: var(--accent-blue);
+    color: var(--bg-dark);
+}
