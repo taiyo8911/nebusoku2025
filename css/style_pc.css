@@ -1,0 +1,191 @@
+/* Webフォント */
+@font-face {
+    font-family: "JF-Dot-K14";
+    src: url("../fonts/JF-Dot-K14.ttf") format("truetype");
+}
+
+
+/* 共通 */
+* {
+    font-family: "JF-Dot-K14", serif;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+body {
+    padding-top: 50px;
+}
+
+p, div {
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    cursor: pointer;
+}
+
+a:hover {
+    color: yellow;
+}
+
+.hover-yellow:hover {
+    color: yellow;
+}
+
+.program-box ul {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #FFFF00;
+}
+
+/* ナビメニュー */
+.dropdown {
+    width: max-content;
+    margin: 0 auto;
+}
+
+.dropdown-item-text {
+    text-align: left;
+}
+
+/* イメージ */
+.image {
+    margin-bottom: 120px;
+}
+
+/* 画像に文字重ね */
+.time_cloud img {
+    width: 30%;
+}
+
+.time_cloud {
+    position: relative;
+    height: 20%;
+}
+
+.time_cloud p {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    /*ベンダープレフィックス*/
+    -webkit-transform: translate(-50%, -50%);
+    /*ベンダープレフィックス*/
+    transform: translate(-50%, -50%);
+    /*センター寄せの修正*/
+    color: blue;
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+/* 内部リンクのアンカー調整 */
+.anchor {
+    padding-top: 70px;
+    margin-top: -70px;
+}
+
+/* イントロダクション */
+.intro {
+    width: max-content;
+    margin: 0 auto;
+    margin-bottom: 200px;
+    font-weight: bolder;
+    font-size: 1.5rem;
+    text-align: left;
+}
+
+
+/* イベント情報 */
+.info_wrap {
+    margin-bottom: 300px;
+}
+
+.overview {
+    width: max-content;
+    margin: 0 auto;
+    font-weight: bolder;
+    font-size: 1.5rem;
+    text-align: left;
+    padding: 40px;
+    border: 5px solid #ffffff;
+}
+
+/* ヘッドライナー */
+.headliner {
+    margin-bottom: 300px;
+}
+
+/* プログラム */
+.program_wrap {
+    margin-bottom: 300px;
+}
+
+.program-box {
+    width: 360px;
+    height: 300px;
+    margin: 2rem auto;
+    border: 4px solid #ffffff;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.los-box {
+    height: 400px;
+}
+
+.program-box-title {
+    width: 310px;
+    background-color: #000000;
+    border: 4px solid #ffffff;
+    font-size: 1.5rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    line-height: 1;
+    position: absolute;
+    top: -25px;
+}
+
+/* 会場案内 */
+.access {
+    width: max-content;
+    margin: 0 auto;
+    margin-bottom: 300px;
+    font-size: 1.25rem;
+}
+
+/* 注意事項 */
+.notes {
+    font-weight: bolder;
+    font-size: 1.25rem;
+    text-align: left;
+    width: max-content;
+    border: 2px solid #ffffff;
+    padding: 30px;
+    margin: 0 auto;
+    margin-bottom: 200px;
+}
+
+
+/* クレジット */
+.credits {
+    width: max-content;
+    margin: 0 auto;
+    text-align: left;
+}
+
+
+/* フッター */
+.footer {
+    width: max-content;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    font-size: 0.8rem;
+    text-align: left;
+}
