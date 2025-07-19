@@ -44,45 +44,46 @@ body {
     background: linear-gradient(135deg, var(--bg-medium) 0%, var(--bg-dark) 100%);
     padding: 60px 20px;
     border-bottom: 1px solid var(--border-color);
-}
-
-.header-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-    align-items: center;
-}
-
-/* ===== ロゴセクション ===== */
-.logo-section {
     text-align: center;
 }
 
-.main-logo {
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.event-title {
+    font-size: clamp(2rem, 4vw, 3rem);
     background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    font-weight: bold;
 }
 
-.logo-subtitle {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+.header-image {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: var(--border-radius-md);
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-medium);
 }
 
-/* ===== イベント詳細 ===== */
+/* イベント詳細をヘッダー内でセンタリング */
 .event-details {
     background: var(--bg-light);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
     padding: 30px;
     box-shadow: var(--shadow-medium);
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
 }
 
+/* ===== イベント詳細 ===== */
 .details-title {
     color: var(--accent-blue);
     font-size: 1.3rem;
@@ -117,30 +118,7 @@ body {
     font-weight: bold;
 }
 
-/* ===== 会場セクション ===== */
-.venue-section {
-    text-align: center;
-}
-
-.venue-card {
-    background: var(--bg-light);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    padding: 20px;
-}
-
-.venue-title {
-    color: var(--accent-green);
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-}
-
-.venue-info {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.6;
-}
-
+/* venue-linkスタイルをevent-details内で使用 */
 .venue-link {
     color: var(--accent-blue);
     text-decoration: none;
@@ -152,9 +130,45 @@ body {
     text-decoration: underline;
 }
 
-.venue-tel {
-    color: var(--accent-green);
+.event-notes {
+    background: rgba(126, 231, 135, 0.1);
+    border: 1px solid var(--accent-green);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
 }
+
+.event-notes-title {
+    color: var(--accent-green);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.event-notes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.event-notes-list li {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    padding-left: 15px;
+    position: relative;
+}
+
+.event-notes-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent-green);
+    font-weight: bold;
+}
+
+/* ===== 会場セクション（削除） ===== */
+/* 会場案内はevent-detailsに統合されたため、関連スタイルを削除 */
 
 /* ===== メインコンテンツグリッド ===== */
 .content-grid {
@@ -398,7 +412,10 @@ body {
     border: 1px solid var(--accent-green);
     border-radius: 12px;
     padding: 20px;
-    margin-top: 20px;
+}
+
+.notes-container .notes-section {
+    margin-top: 0;
 }
 
 .notes-title {
@@ -467,7 +484,6 @@ body {
 /* ===== レスポンシブデザイン ===== */
 @media (max-width: 1200px) {
 
-    .header-grid,
     .content-grid,
     .footer-content {
         grid-template-columns: 1fr;
@@ -483,16 +499,20 @@ body {
         transform: none;
     }
 
-    .main-program {
-        order: 1;
-    }
-
+    /* モバイル表示順序設定 */
     .headliner-sidebar {
         order: 2;
+        /* ヘッドライナー */
+    }
+
+    .main-program {
+        order: 3;
+        /* プログラム */
     }
 
     .info-sidebar {
-        order: 3;
+        order: 4;
+        /* イベント統計 */
     }
 }
 
@@ -515,10 +535,6 @@ body {
         font-size: 1.5rem;
     }
 
-    .header-grid {
-        gap: 20px;
-    }
-
     .main-header {
         padding: 40px 20px;
     }
@@ -532,6 +548,19 @@ body {
     .day-container,
     .info-card {
         padding: 20px;
+    }
+
+    .event-details {
+        max-width: none;
+        margin: 0;
+    }
+
+    .event-title {
+        font-size: 1.8rem;
+    }
+
+    .header-image {
+        margin-bottom: 20px;
     }
 }
 
