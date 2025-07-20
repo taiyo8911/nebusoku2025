@@ -15,7 +15,6 @@ const CONFIG = {
     // インタラクション設定
     interactions: {
         hoverDelay: 50,    // ms
-        clickEffect: true,
         soundEnabled: false // 将来的にサウンド追加時用
     },
 
@@ -100,8 +99,8 @@ function initializeScrollAnimations() {
             rootMargin: '0px 0px -10% 0px'
         });
 
-        // 監視対象要素
-        const targets = document.querySelectorAll('.program-item, .stat-item, .headliner-song');
+        // 監視対象要素（楽曲とプログラムアイテムは単純な表示用）
+        const targets = document.querySelectorAll('.stat-item');
         targets.forEach(target => {
             target.classList.add('animate-ready');
             observer.observe(target);
@@ -125,118 +124,11 @@ function initializeStaggeredAnimations() {
  * インタラクション機能の初期化
  */
 function initializeInteractions() {
-    // 楽曲アイテムのクリックエフェクト
-    initializeSongInteractions();
-
-    // プログラムアイテムのホバーエフェクト
-    initializeProgramHover();
-
     // 統計アイテムのカウンターアニメーション
     initializeStatCounters();
 
     // スムーズスクロール
     initializeSmoothScroll();
-}
-
-/**
- * 楽曲アイテムのインタラクション
- */
-function initializeSongInteractions() {
-    const songItems = document.querySelectorAll('.song-compact, .headliner-song');
-
-    songItems.forEach(item => {
-        // クリックエフェクト
-        item.addEventListener('click', function (e) {
-            if (CONFIG.interactions.clickEffect) {
-                createRippleEffect(e, this);
-            }
-
-            // 楽曲情報の表示（将来的な機能）
-            const songName = this.textContent.trim();
-            console.log(`Selected song: ${songName}`);
-        });
-
-        // ホバーエフェクト
-        item.addEventListener('mouseenter', function () {
-            this.style.transform = 'scale(1.05) translateY(-2px)';
-        });
-
-        item.addEventListener('mouseleave', function () {
-            this.style.transform = '';
-        });
-    });
-}
-
-/**
- * リップルエフェクトの作成
- */
-function createRippleEffect(event, element) {
-    const ripple = document.createElement('span');
-    const rect = element.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const x = event.clientX - rect.left - size / 2;
-    const y = event.clientY - rect.top - size / 2;
-
-    ripple.style.cssText = `
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(88, 166, 255, 0.3);
-        transform: scale(0);
-        animation: ripple 0.6s linear;
-        left: ${x}px;
-        top: ${y}px;
-        width: ${size}px;
-        height: ${size}px;
-        pointer-events: none;
-    `;
-
-    // リップルアニメーションのCSS追加
-    if (!document.querySelector('#ripple-style')) {
-        const style = document.createElement('style');
-        style.id = 'ripple-style';
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(2);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    element.style.position = 'relative';
-    element.style.overflow = 'hidden';
-    element.appendChild(ripple);
-
-    setTimeout(() => {
-        ripple.remove();
-    }, 600);
-}
-
-/**
- * プログラムアイテムのホバーエフェクト
- */
-function initializeProgramHover() {
-    const programItems = document.querySelectorAll('.program-item');
-
-    programItems.forEach(item => {
-        item.addEventListener('mouseenter', function () {
-            // 他のアイテムを少し暗くする
-            programItems.forEach(otherItem => {
-                if (otherItem !== this) {
-                    otherItem.style.opacity = '0.7';
-                }
-            });
-        });
-
-        item.addEventListener('mouseleave', function () {
-            // 全てのアイテムの透明度を戻す
-            programItems.forEach(otherItem => {
-                otherItem.style.opacity = '';
-            });
-        });
-    });
 }
 
 /**
@@ -346,10 +238,7 @@ function handleResponsiveChanges() {
  */
 function adjustMobileLayout() {
     // モバイル特有の調整
-    const programItems = document.querySelectorAll('.program-item');
-    programItems.forEach(item => {
-        item.style.transform = ''; // ホバーエフェクトを無効化
-    });
+    console.log('Mobile layout applied');
 }
 
 /**
@@ -387,7 +276,7 @@ function initializeAccessibility() {
  */
 function initializeKeyboardNavigation() {
     const focusableElements = document.querySelectorAll(
-        '.song-compact, .headliner-song, .venue-link, .program-item'
+        '.venue-link'
     );
 
     focusableElements.forEach(element => {
@@ -412,7 +301,7 @@ function initializeKeyboardNavigation() {
 function initializeFocusManagement() {
     // フォーカス時のスタイル調整
     const focusableElements = document.querySelectorAll(
-        '.song-compact, .headliner-song, .program-item'
+        '.venue-link'
     );
 
     focusableElements.forEach(element => {
@@ -432,21 +321,11 @@ function initializeFocusManagement() {
  * ARIA ラベルの初期化
  */
 function initializeAriaLabels() {
-    // 楽曲アイテムにaria-labelを追加
-    const songItems = document.querySelectorAll('.song-compact, .headliner-song');
-    songItems.forEach(item => {
-        const songName = item.textContent.trim();
-        item.setAttribute('aria-label', `楽曲: ${songName}`);
-        item.setAttribute('role', 'button');
-    });
-
-    // プログラムアイテムにaria-labelを追加
-    const programItems = document.querySelectorAll('.program-item');
-    programItems.forEach(item => {
-        const bandName = item.querySelector('.band-name')?.textContent.trim();
-        const timeSlot = item.querySelector('.time-slot')?.textContent.trim();
-        if (bandName && timeSlot) {
-            item.setAttribute('aria-label', `${timeSlot} ${bandName}のパフォーマンス`);
+    // 会場リンクの適切なアクセシビリティ設定のみ
+    const venueLinks = document.querySelectorAll('.venue-link');
+    venueLinks.forEach(link => {
+        if (!link.hasAttribute('aria-label')) {
+            link.setAttribute('aria-label', '会場の地図を新しいタブで開く');
         }
     });
 }
@@ -495,9 +374,6 @@ function initializeMemoryManagement() {
     // ページ離脱時のクリーンアップ
     window.addEventListener('beforeunload', function () {
         // イベントリスナーのクリーンアップ
-        document.removeEventListener('scroll', handleScroll);
-        window.removeEventListener('resize', handleResize);
-
         console.log('Memory cleanup completed');
     });
 }
@@ -537,8 +413,7 @@ window.addEventListener('error', function (event) {
 window.GridLayout = {
     CONFIG,
     initializeAnimations,
-    initializeInteractions,
-    createRippleEffect
+    initializeInteractions
 };
 
 console.log('Grid animation script loaded successfully');
