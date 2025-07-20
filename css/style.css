@@ -71,7 +71,6 @@ body {
     box-shadow: var(--shadow-medium);
 }
 
-/* イベント詳細をヘッダー内でセンタリング */
 .event-details {
     background: var(--bg-light);
     border: 1px solid var(--border-color);
@@ -118,7 +117,6 @@ body {
     font-weight: bold;
 }
 
-/* venue-linkスタイルをevent-details内で使用 */
 .venue-link {
     color: var(--accent-blue);
     text-decoration: none;
@@ -166,9 +164,6 @@ body {
     color: var(--accent-green);
     font-weight: bold;
 }
-
-/* ===== 会場セクション（削除） ===== */
-/* 会場案内はevent-detailsに統合されたため、関連スタイルを削除 */
 
 /* ===== メインコンテンツグリッド ===== */
 .content-grid {
@@ -221,7 +216,6 @@ body {
     gap: 8px;
 }
 
-/* 楽曲要素 - インタラクション削除 */
 .headliner-song {
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 166, 87, 0.2);
@@ -229,7 +223,6 @@ body {
     padding: 8px 12px;
     text-align: center;
     font-size: 0.85rem;
-    /* transition, cursor, hover効果を削除 */
 }
 
 /* ===== 中央メインエリア - プログラム ===== */
@@ -326,7 +319,6 @@ body {
     gap: 8px;
 }
 
-/* 楽曲要素 - インタラクション削除 */
 .song-compact {
     background: rgba(88, 166, 255, 0.1);
     border: 1px solid rgba(88, 166, 255, 0.2);
@@ -334,7 +326,6 @@ body {
     padding: 6px 10px;
     text-align: center;
     font-size: 0.8rem;
-    /* transition, cursor, hover効果を削除 */
 }
 
 /* ===== 右サイドバー - 情報 ===== */
@@ -467,7 +458,6 @@ body {
 
 /* ===== レスポンシブデザイン ===== */
 @media (max-width: 1200px) {
-
     .content-grid {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -482,20 +472,16 @@ body {
         transform: none;
     }
 
-    /* モバイル表示順序設定 */
     .headliner-sidebar {
         order: 2;
-        /* ヘッドライナー */
     }
 
     .main-program {
         order: 3;
-        /* プログラム */
     }
 
     .info-sidebar {
         order: 4;
-        /* イベント統計 */
     }
 }
 
@@ -548,10 +534,6 @@ body {
 }
 
 @media (max-width: 480px) {
-    .main-logo {
-        font-size: 1.5rem;
-    }
-
     .day-header {
         font-size: 1.3rem;
     }
