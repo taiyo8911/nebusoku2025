@@ -30,6 +30,7 @@
 * {
     font-family: "JF-Dot-K14", serif;
     box-sizing: border-box;
+    user-select: none;
 }
 
 body {
