@@ -262,31 +262,8 @@ body {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
     padding: 20px;
-    transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
-}
-
-.program-item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple));
-    transform: scaleY(0);
-    transition: transform 0.3s ease;
-}
-
-.program-item:hover::before {
-    transform: scaleY(1);
-}
-
-.program-item:hover {
-    background: var(--hover-bg);
-    border-color: var(--accent-blue);
-    transform: translateX(8px);
 }
 
 .program-header {
@@ -469,10 +446,6 @@ body {
         position: static;
     }
 
-    .program-item:hover {
-        transform: none;
-    }
-
     .headliner-sidebar {
         order: 2;
     }
@@ -582,7 +555,6 @@ body {
 }
 
 /* ===== パフォーマンス最適化 ===== */
-.program-item,
 .stat-item {
     will-change: transform;
 }
