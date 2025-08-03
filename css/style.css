@@ -17,9 +17,6 @@
     --text-primary: #f0f6fc;
     --text-secondary: #8b949e;
     --border-color: #30363d;
-    --hover-bg: #262c36;
-    --shadow-light: 0 8px 24px rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.2);
     --transition-smooth: all 0.3s ease;
     --border-radius-sm: 8px;
     --border-radius-md: 16px;
@@ -69,7 +66,7 @@ body {
     height: auto;
     border-radius: var(--border-radius-md);
     margin-bottom: 30px;
-    box-shadow: var(--shadow-medium);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .event-details {
@@ -77,20 +74,13 @@ body {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
     padding: 30px;
-    box-shadow: var(--shadow-medium);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     max-width: 600px;
     margin: 0 auto;
     text-align: left;
 }
 
 /* ===== イベント詳細 ===== */
-.details-title {
-    color: var(--accent-blue);
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
 .detail-item {
     display: flex;
     justify-content: space-between;
@@ -129,41 +119,9 @@ body {
     text-decoration: underline;
 }
 
-.event-notes {
-    background: rgba(126, 231, 135, 0.1);
-    border: 1px solid var(--accent-green);
-    border-radius: 12px;
-    padding: 20px;
-    margin-top: 20px;
-}
-
-.event-notes-title {
-    color: var(--accent-green);
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.event-notes-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.event-notes-list li {
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    margin-bottom: 8px;
-    padding-left: 15px;
-    position: relative;
-}
-
-.event-notes-list li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: var(--accent-green);
-    font-weight: bold;
+.venue-link:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
 }
 
 /* ===== メインコンテンツグリッド ===== */
@@ -174,7 +132,6 @@ body {
     max-width: 1400px;
     margin: 40px auto;
     padding: 0 20px;
-    min-height: calc(100vh - 200px);
 }
 
 /* ===== 左サイドバー - ヘッドライナー ===== */
@@ -201,7 +158,6 @@ body {
     border: 1px solid var(--accent-orange);
     border-radius: var(--border-radius-md);
     padding: 25px;
-    margin-bottom: 20px;
 }
 
 .headliner-band-name {
@@ -238,7 +194,7 @@ body {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
     padding: 30px;
-    box-shadow: var(--shadow-light);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .day-header {
@@ -262,8 +218,6 @@ body {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
     padding: 20px;
-    position: relative;
-    overflow: hidden;
 }
 
 .program-header {
@@ -362,46 +316,6 @@ body {
 .stat-label {
     color: var(--text-secondary);
     font-size: 0.9rem;
-}
-
-.notes-section {
-    background: rgba(126, 231, 135, 0.1);
-    border: 1px solid var(--accent-green);
-    border-radius: 12px;
-    padding: 20px;
-}
-
-.notes-container .notes-section {
-    margin-top: 0;
-}
-
-.notes-title {
-    color: var(--accent-green);
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.notes-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.notes-list li {
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    margin-bottom: 8px;
-    padding-left: 15px;
-    position: relative;
-}
-
-.notes-list li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: var(--accent-green);
-    font-weight: bold;
 }
 
 /* ===== フッター ===== */
@@ -552,59 +466,6 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-blue);
-}
-
-/* ===== パフォーマンス最適化 ===== */
-.stat-item {
-    will-change: transform;
-}
-
-/* ===== アクセシビリティ ===== */
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-}
-
-/* ===== プリント用スタイル ===== */
-@media print {
-    body {
-        background: white !important;
-        color: black !important;
-    }
-
-    .content-grid {
-        grid-template-columns: 1fr !important;
-    }
-
-    .program-item,
-    .headliner-band,
-    .info-card {
-        border: 1px solid #000 !important;
-        background: white !important;
-    }
-
-    .day-header,
-    .band-name {
-        color: black !important;
-    }
-
-    .time-slot {
-        background: #000 !important;
-        color: white !important;
-    }
-}
-
-/* ===== フォーカススタイル ===== */
-.venue-link:focus {
-    outline: 2px solid var(--accent-blue);
-    outline-offset: 2px;
 }
 
 /* ===== セレクション色 ===== */
