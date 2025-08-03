@@ -1,101 +1,73 @@
 /**
- * Lack of Sleep イベントサイト - 簡略化版
- * 必要最小限の機能のみ実装
+ * Lack of Sleep イベントサイト - 軽量版
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    initializeBasicAnimations();
-    initializeInteractions();
-    console.log('イベントサイト初期化完了');
+    initAnimations();
+    initInteractions();
 });
 
 /**
- * 基本的なアニメーション
+ * 基本アニメーション
  */
-function initializeBasicAnimations() {
+function initAnimations() {
     // ページロード時のフェードイン
-    const mainElements = [
-        '.main-header',
-        '.headliner-sidebar',
-        '.main-program',
-        '.info-sidebar'
-    ];
+    const elements = document.querySelectorAll('.main-header, .headliner-sidebar, .main-program, .info-sidebar');
 
-    mainElements.forEach((selector, index) => {
-        const element = document.querySelector(selector);
-        if (element) {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(20px)';
+    elements.forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
 
-            setTimeout(() => {
-                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }, index * 150);
-        }
+        setTimeout(() => {
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        }, i * 150);
     });
 
-    // 統計カウンターアニメーション
-    initializeStatCounters();
-}
-
-/**
- * 統計カウンター（簡略版）
- */
-function initializeStatCounters() {
-    const statNumbers = document.querySelectorAll('.stat-number');
-
+    // 統計カウンター
     if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const element = entry.target;
-                    const finalValue = element.textContent;
-
-                    // 数字のみ抽出
-                    const numericValue = parseFloat(finalValue.replace(/[^\d.]/g, ''));
-
-                    if (!isNaN(numericValue)) {
-                        animateNumber(element, numericValue, finalValue);
-                    }
-
-                    observer.unobserve(element);
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.5 });
+        });
 
-        statNumbers.forEach(stat => observer.observe(stat));
+        document.querySelectorAll('.stat-number').forEach(stat => observer.observe(stat));
     }
 }
 
 /**
- * 数字アニメーション（簡略版）
+ * 数字カウンターアニメーション
  */
-function animateNumber(element, targetNumber, originalText) {
-    const duration = 1000; // 1秒
-    const startTime = performance.now();
+function animateCounter(element) {
+    const text = element.textContent;
+    const num = parseFloat(text.replace(/[^\d.]/g, ''));
 
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
+    if (isNaN(num)) return;
 
-        // イージング関数（ease-out）
-        const easedProgress = 1 - Math.pow(1 - progress, 3);
-        const currentValue = targetNumber * easedProgress;
+    const start = performance.now();
+    const duration = 1000;
 
-        // 元のテキスト形式を保持
-        if (originalText.includes('+')) {
-            element.textContent = Math.floor(currentValue) + '+';
-        } else if (originalText.includes('.')) {
-            element.textContent = currentValue.toFixed(1);
+    function update(time) {
+        const progress = Math.min((time - start) / duration, 1);
+        const current = num * (1 - Math.pow(1 - progress, 3)); // ease-out
+
+        if (text.includes('+')) {
+            element.textContent = Math.floor(current) + '+';
+        } else if (text.includes('.')) {
+            element.textContent = current.toFixed(1);
         } else {
-            element.textContent = Math.floor(currentValue);
+            element.textContent = Math.floor(current);
         }
 
         if (progress < 1) {
             requestAnimationFrame(update);
         } else {
-            element.textContent = originalText; // 最終値を正確に設定
+            element.textContent = text;
         }
     }
 
@@ -103,39 +75,27 @@ function animateNumber(element, targetNumber, originalText) {
 }
 
 /**
- * インタラクション機能
+ * インタラクション
  */
-function initializeInteractions() {
+function initInteractions() {
     // スムーズスクロール
-    const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    anchorLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
                 e.preventDefault();
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                target.scrollIntoView({ behavior: 'smooth' });
             }
         });
     });
 
-    // キーボードアクセシビリティ（会場リンクのみ）
-    const venueLinks = document.querySelectorAll('.venue-link');
-    venueLinks.forEach(link => {
-        link.addEventListener('keydown', function (e) {
+    // 会場リンクのキーボード対応
+    document.querySelectorAll('.venue-link').forEach(link => {
+        link.addEventListener('keydown', e => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                this.click();
+                link.click();
             }
         });
     });
 }
-
-// エラーハンドリング（最小限）
-window.addEventListener('error', function (e) {
-    console.error('エラーが発生しました:', e.message);
-});
