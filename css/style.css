@@ -5,7 +5,7 @@
     font-display: swap;
 }
 
-/* ===== CSS変数 ===== */
+/* ===== CSS変数（使用されているもののみ） ===== */
 :root {
     --bg-dark: #0d1117;
     --bg-medium: #161b22;
@@ -17,10 +17,6 @@
     --text-primary: #f0f6fc;
     --text-secondary: #8b949e;
     --border-color: #30363d;
-    --transition-smooth: all 0.3s ease;
-    --border-radius-sm: 8px;
-    --border-radius-md: 16px;
-    --border-radius-lg: 20px;
 }
 
 /* ===== 基本設定 ===== */
@@ -64,7 +60,7 @@ body {
     width: 100%;
     max-width: 800px;
     height: auto;
-    border-radius: var(--border-radius-md);
+    border-radius: 16px;
     margin-bottom: 30px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
@@ -72,7 +68,7 @@ body {
 .event-details {
     background: var(--bg-light);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
+    border-radius: 16px;
     padding: 30px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     max-width: 600px;
@@ -80,7 +76,6 @@ body {
     text-align: left;
 }
 
-/* ===== イベント詳細 ===== */
 .detail-item {
     display: flex;
     justify-content: space-between;
@@ -111,7 +106,7 @@ body {
 .venue-link {
     color: var(--accent-blue);
     text-decoration: none;
-    transition: var(--transition-smooth);
+    transition: all 0.3s ease;
 }
 
 .venue-link:hover {
@@ -134,11 +129,11 @@ body {
     padding: 0 20px;
 }
 
-/* ===== 左サイドバー - ヘッドライナー ===== */
+/* ===== ヘッドライナー ===== */
 .headliner-sidebar {
     background: var(--bg-medium);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-lg);
+    border-radius: 20px;
     padding: 30px;
     height: fit-content;
     position: sticky;
@@ -156,7 +151,7 @@ body {
 .headliner-band {
     background: linear-gradient(135deg, rgba(255, 166, 87, 0.1) 0%, rgba(188, 140, 255, 0.1) 100%);
     border: 1px solid var(--accent-orange);
-    border-radius: var(--border-radius-md);
+    border-radius: 16px;
     padding: 25px;
 }
 
@@ -176,13 +171,13 @@ body {
 .headliner-song {
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 166, 87, 0.2);
-    border-radius: var(--border-radius-sm);
+    border-radius: 8px;
     padding: 8px 12px;
     text-align: center;
     font-size: 0.85rem;
 }
 
-/* ===== 中央メインエリア - プログラム ===== */
+/* ===== プログラム ===== */
 .main-program {
     display: flex;
     flex-direction: column;
@@ -192,7 +187,7 @@ body {
 .day-container {
     background: var(--bg-medium);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-lg);
+    border-radius: 20px;
     padding: 30px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
@@ -216,7 +211,7 @@ body {
 .program-item {
     background: var(--bg-light);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
+    border-radius: 16px;
     padding: 20px;
 }
 
@@ -254,13 +249,13 @@ body {
 .song-compact {
     background: rgba(88, 166, 255, 0.1);
     border: 1px solid rgba(88, 166, 255, 0.2);
-    border-radius: var(--border-radius-sm);
+    border-radius: 8px;
     padding: 6px 10px;
     text-align: center;
     font-size: 0.8rem;
 }
 
-/* ===== 右サイドバー - 情報 ===== */
+/* ===== サイドバー ===== */
 .info-sidebar {
     display: flex;
     flex-direction: column;
@@ -270,7 +265,7 @@ body {
 .info-card {
     background: var(--bg-medium);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
+    border-radius: 16px;
     padding: 20px;
     height: fit-content;
 }
@@ -295,10 +290,10 @@ body {
 .stat-item {
     background: var(--bg-light);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-sm);
+    border-radius: 8px;
     padding: 15px;
     text-align: center;
-    transition: var(--transition-smooth);
+    transition: all 0.3s ease;
 }
 
 .stat-item:hover {
@@ -450,7 +445,7 @@ body {
     }
 }
 
-/* ===== スクロールバーカスタマイズ ===== */
+/* ===== その他の設定 ===== */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -468,13 +463,7 @@ body {
     background: var(--accent-blue);
 }
 
-/* ===== セレクション色 ===== */
 ::selection {
-    background: var(--accent-blue);
-    color: var(--bg-dark);
-}
-
-::-moz-selection {
     background: var(--accent-blue);
     color: var(--bg-dark);
 }
