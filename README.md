@@ -23,8 +23,6 @@ nebusoku2025/
 │   └── animation.js    # アニメーション・インタラクション処理
 ├── fonts/
 │   └── JF-Dot-K14.ttf  # カスタムフォント
-├── image/
-│   └── header.jpeg     # ヘッダー画像
 ├── CNAME               # カスタムドメイン設定
 └── README.md           # このファイル
 ```
