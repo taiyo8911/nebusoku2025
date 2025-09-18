@@ -504,6 +504,10 @@ body {
         font-size: 1rem;
     }
 
+    .fs-08 {
+        font-size: 0.8rem;
+    }
+
     .time-slot {
         padding: 5px 10px;
         font-size: 0.75rem;
