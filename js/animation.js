@@ -164,19 +164,33 @@ function animateCounter(element) {
 
 /**
  * 画像拡大モーダル機能の初期化
- * バンドロゴをクリックして拡大表示する機能を設定
+ * バンドロゴとヘッダー画像をクリックして拡大表示する機能を設定
  */
 function initImageModal() {
     // ===== モーダル要素の取得 =====
     const modal = document.getElementById('imageModal');        // モーダル背景
     const modalImage = document.getElementById('modalImage');   // モーダル内の拡大画像
     const bandLogos = document.querySelectorAll('.band-logo');  // 全てのバンドロゴ
+    const headerImages = document.querySelectorAll('.header-image'); // 全てのヘッダー画像
 
     // ===== バンドロゴクリック時の処理 =====
     // 各バンドロゴにクリックイベントリスナーを追加
     bandLogos.forEach(logo => {
         logo.addEventListener('click', function () {
             // クリックされたロゴの画像をモーダルに設定
+            modalImage.src = this.src;   // 画像URLをコピー
+            modalImage.alt = this.alt;   // alt属性をコピー（アクセシビリティ）
+
+            // モーダルを表示
+            modal.style.display = 'block';
+        });
+    });
+
+    // ===== ヘッダー画像クリック時の処理 =====
+    // 各ヘッダー画像にクリックイベントリスナーを追加
+    headerImages.forEach(image => {
+        image.addEventListener('click', function () {
+            // クリックされたヘッダー画像をモーダルに設定
             modalImage.src = this.src;   // 画像URLをコピー
             modalImage.alt = this.alt;   // alt属性をコピー（アクセシビリティ）
 

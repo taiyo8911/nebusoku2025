@@ -75,6 +75,12 @@ body {
     height: auto;
     display: none;
     border-radius: 16px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.header-image:hover {
+    opacity: 0.9;
 }
 
 .header-image.active {
