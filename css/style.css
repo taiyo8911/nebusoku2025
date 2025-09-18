@@ -492,8 +492,8 @@ body {
     }
 
     .band-logo {
-        width: 140px;
-        height: 140px;
+        width: 120px;
+        height: 120px;
         padding: 6px;
         justify-self: center;
         grid-column: 1;
