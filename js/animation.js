@@ -88,14 +88,4 @@ function initInteractions() {
             }
         });
     });
-
-    // 会場リンクのキーボード対応
-    document.querySelectorAll('.venue-link').forEach(link => {
-        link.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                link.click();
-            }
-        });
-    });
 }
