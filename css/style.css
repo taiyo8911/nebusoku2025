@@ -156,20 +156,6 @@ body {
     font-weight: bold;
 }
 
-.headliner-songs {
-    display: grid;
-    gap: 8px;
-}
-
-.headliner-song {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 166, 87, 0.2);
-    border-radius: 8px;
-    padding: 8px 12px;
-    text-align: center;
-    font-size: 0.85rem;
-}
-
 /* ===== プログラムセクション ===== */
 .main-program {
     display: flex;
@@ -537,11 +523,6 @@ body {
 
     .day-header {
         font-size: 1.3rem;
-    }
-
-    .headliner-song {
-        font-size: 0.8rem;
-        padding: 6px 10px;
     }
 
     .stats-grid {
