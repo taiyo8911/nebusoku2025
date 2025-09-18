@@ -1,3 +1,108 @@
+/* ===== プログラム ===== */
+.main-program {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.day-container {
+    background: var(--bg-medium);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.day-header {
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.programs-list {
+    display: grid;
+    gap: 20px;
+}
+
+.program-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.time-slot {
+    background: var(--accent-blue);
+    color: var(--bg-dark);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    min-width: 60px;
+    flex-shrink: 0;
+}
+
+.program-card {
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 0;
+    overflow: hidden;
+    flex: 1;
+}
+
+.program-header {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.band-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.band-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.band-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.songs-compact {
+    padding: 20px;
+}
+
+.song-compact {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.song-compact:last-child {
+    border-bottom: none;
+}
+
 /* ===== Webフォント ===== */
 @font-face {
     font-family: "JF-Dot-K14";
@@ -209,50 +314,77 @@ body {
 }
 
 .program-item {
-    background: var(--bg-light);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 20px;
-}
-
-.program-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.band-name {
-    color: var(--text-primary);
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 0;
+    align-items: flex-start;
+    gap: 15px;
 }
 
 .time-slot {
     background: var(--accent-blue);
     color: var(--bg-dark);
-    padding: 6px 12px;
-    border-radius: 12px;
+    padding: 8px 16px;
+    border-radius: 8px;
     font-size: 0.9rem;
     font-weight: bold;
+    text-align: center;
+    min-width: 60px;
+    flex-shrink: 0;
+}
+
+.program-card {
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 0;
+    overflow: hidden;
+    flex: 1;
+}
+
+.program-header {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.band-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.band-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.band-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.2;
 }
 
 .songs-compact {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 8px;
+    padding: 20px;
 }
 
 .song-compact {
-    background: rgba(88, 166, 255, 0.1);
-    border: 1px solid rgba(88, 166, 255, 0.2);
-    border-radius: 8px;
-    padding: 6px 10px;
-    text-align: center;
-    font-size: 0.8rem;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.song-compact:last-child {
+    border-bottom: none;
 }
 
 /* ===== サイドバー ===== */
@@ -369,14 +501,42 @@ body {
 }
 
 @media (max-width: 768px) {
-    .songs-compact {
-        grid-template-columns: 1fr;
+    .program-header {
+        grid-template-columns: 80px 1fr;
+        grid-template-rows: auto auto;
+        gap: 15px;
+        padding: 15px;
     }
 
-    .program-header {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
+    .band-logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .band-info {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .time-slot {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        justify-self: center;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .band-name {
+        font-size: 1.1rem;
+    }
+
+    .songs-compact {
+        padding: 15px;
+    }
+
+    .song-compact {
+        padding: 6px 0;
+        font-size: 0.85rem;
     }
 
     .stats-grid {
@@ -417,8 +577,16 @@ body {
 }
 
 @media (max-width: 480px) {
-    .day-header {
-        font-size: 1.3rem;
+    .program-header {
+        grid-template-columns: 60px 1fr;
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .band-logo {
+        width: 60px;
+        height: 60px;
+        padding: 6px;
     }
 
     .band-name {
@@ -426,13 +594,21 @@ body {
     }
 
     .time-slot {
-        font-size: 0.8rem;
-        padding: 4px 8px;
+        padding: 5px 10px;
+        font-size: 0.75rem;
     }
 
     .song-compact {
-        font-size: 0.75rem;
-        padding: 4px 8px;
+        font-size: 0.8rem;
+        padding: 5px 0;
+    }
+
+    .songs-compact {
+        padding: 12px;
+    }
+
+    .day-header {
+        font-size: 1.3rem;
     }
 
     .headliner-song {
