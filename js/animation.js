@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     initAnimations();
+    initImageModal();
 });
 
 /**
@@ -64,4 +65,34 @@ function animateCounter(element) {
     }
 
     requestAnimationFrame(update);
+}
+
+/**
+ * 画像拡大モーダル機能
+ */
+function initImageModal() {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const bandLogos = document.querySelectorAll('.band-logo');
+
+    // 各バンドロゴにクリックイベントを追加
+    bandLogos.forEach(logo => {
+        logo.addEventListener('click', function () {
+            modalImage.src = this.src;
+            modalImage.alt = this.alt;
+            modal.style.display = 'block';
+        });
+    });
+
+    // モーダル背景をクリックして閉じる（画像以外の部分）
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // モーダル画像をクリックして閉じる
+    modalImage.addEventListener('click', function () {
+        modal.style.display = 'none';
+    });
 }
