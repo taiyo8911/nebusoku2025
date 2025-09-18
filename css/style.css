@@ -96,13 +96,6 @@ body {
     color: var(--text-primary);
 }
 
-.free-notice {
-    text-align: center;
-    margin-top: 15px;
-    color: var(--accent-green);
-    font-weight: bold;
-}
-
 .venue-link {
     color: var(--accent-blue);
     text-decoration: none;
@@ -502,15 +495,26 @@ body {
 /* スマートフォン (480px以下) */
 @media (max-width: 480px) {
     .program-header {
-        grid-template-columns: 60px 1fr;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
         gap: 12px;
         padding: 12px;
+        text-align: center;
+    }
+
+    .band-info {
+        grid-column: 1;
+        grid-row: 1;
+        text-align: center;
     }
 
     .band-logo {
-        width: 60px;
-        height: 60px;
+        width: 140px;
+        height: 140px;
         padding: 6px;
+        justify-self: center;
+        grid-column: 1;
+        grid-row: 2;
     }
 
     .band-name {
