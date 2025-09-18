@@ -4,7 +4,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     initAnimations();
-    initInteractions();
 });
 
 /**
@@ -41,11 +40,10 @@ function initAnimations() {
 }
 
 /**
- * 数字カウンターアニメーション
+ * 数字カウンターアニメーション（整数値専用）
  */
 function animateCounter(element) {
-    const text = element.textContent;
-    const num = parseFloat(text.replace(/[^\d.]/g, ''));
+    const num = parseInt(element.textContent, 10);
 
     if (isNaN(num)) return;
 
@@ -56,36 +54,14 @@ function animateCounter(element) {
         const progress = Math.min((time - start) / duration, 1);
         const current = num * (1 - Math.pow(1 - progress, 3)); // ease-out
 
-        if (text.includes('+')) {
-            element.textContent = Math.floor(current) + '+';
-        } else if (text.includes('.')) {
-            element.textContent = current.toFixed(1);
-        } else {
-            element.textContent = Math.floor(current);
-        }
+        element.textContent = Math.floor(current);
 
         if (progress < 1) {
             requestAnimationFrame(update);
         } else {
-            element.textContent = text;
+            element.textContent = num; // 最終値を確実に設定
         }
     }
 
     requestAnimationFrame(update);
-}
-
-/**
- * インタラクション
- */
-function initInteractions() {
-    // スムーズスクロール
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', e => {
-            const target = document.querySelector(link.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
 }
