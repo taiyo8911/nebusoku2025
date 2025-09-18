@@ -1,108 +1,3 @@
-/* ===== プログラム ===== */
-.main-program {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-}
-
-.day-container {
-    background: var(--bg-medium);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.day-header {
-    background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 30px;
-    font-weight: bold;
-}
-
-.programs-list {
-    display: grid;
-    gap: 20px;
-}
-
-.program-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.time-slot {
-    background: var(--accent-blue);
-    color: var(--bg-dark);
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-align: center;
-    min-width: 60px;
-    flex-shrink: 0;
-}
-
-.program-card {
-    background: var(--bg-light);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 0;
-    overflow: hidden;
-    flex: 1;
-}
-
-.program-header {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.band-logo {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 8px;
-    border: 1px solid var(--border-color);
-}
-
-.band-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.band-name {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: var(--text-primary);
-    margin: 0;
-    line-height: 1.2;
-}
-
-.songs-compact {
-    padding: 20px;
-}
-
-.song-compact {
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.song-compact:last-child {
-    border-bottom: none;
-}
-
 /* ===== Webフォント ===== */
 @font-face {
     font-family: "JF-Dot-K14";
@@ -110,7 +5,7 @@
     font-display: swap;
 }
 
-/* ===== CSS変数（使用されているもののみ） ===== */
+/* ===== CSS変数 ===== */
 :root {
     --bg-dark: #0d1117;
     --bg-medium: #161b22;
@@ -234,7 +129,7 @@ body {
     padding: 0 20px;
 }
 
-/* ===== ヘッドライナー ===== */
+/* ===== ヘッドライナーサイドバー ===== */
 .headliner-sidebar {
     background: var(--bg-medium);
     border: 1px solid var(--border-color);
@@ -282,7 +177,7 @@ body {
     font-size: 0.85rem;
 }
 
-/* ===== プログラム ===== */
+/* ===== プログラムセクション ===== */
 .main-program {
     display: flex;
     flex-direction: column;
@@ -387,7 +282,7 @@ body {
     border-bottom: none;
 }
 
-/* ===== サイドバー ===== */
+/* ===== 情報サイドバー ===== */
 .info-sidebar {
     display: flex;
     flex-direction: column;
@@ -414,6 +309,7 @@ body {
     text-align: center;
 }
 
+/* ===== 統計セクション ===== */
 .stats-grid {
     display: grid;
     gap: 12px;
@@ -475,7 +371,33 @@ body {
     font-weight: bold;
 }
 
+/* ===== スクロールバー ===== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-blue);
+}
+
+/* ===== テキスト選択 ===== */
+::selection {
+    background: var(--accent-blue);
+    color: var(--bg-dark);
+}
+
 /* ===== レスポンシブデザイン ===== */
+
+/* タブレット・デスクトップ境界 (1200px以下) */
 @media (max-width: 1200px) {
     .content-grid {
         grid-template-columns: 1fr;
@@ -500,7 +422,40 @@ body {
     }
 }
 
+/* タブレット (768px以下) */
 @media (max-width: 768px) {
+    .main-header {
+        padding: 40px 20px;
+    }
+
+    .event-title {
+        font-size: 1.8rem;
+    }
+
+    .header-image {
+        margin-bottom: 20px;
+    }
+
+    .event-details {
+        max-width: none;
+        margin: 0;
+    }
+
+    .content-grid {
+        padding: 0 15px;
+        gap: 20px;
+    }
+
+    .headliner-sidebar,
+    .day-container,
+    .info-card {
+        padding: 20px;
+    }
+
+    .day-header {
+        font-size: 1.5rem;
+    }
+
     .program-header {
         grid-template-columns: 80px 1fr;
         grid-template-rows: auto auto;
@@ -542,40 +497,9 @@ body {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
-    .day-header {
-        font-size: 1.5rem;
-    }
-
-    .main-header {
-        padding: 40px 20px;
-    }
-
-    .content-grid {
-        padding: 0 15px;
-        gap: 20px;
-    }
-
-    .headliner-sidebar,
-    .day-container,
-    .info-card {
-        padding: 20px;
-    }
-
-    .event-details {
-        max-width: none;
-        margin: 0;
-    }
-
-    .event-title {
-        font-size: 1.8rem;
-    }
-
-    .header-image {
-        margin-bottom: 20px;
-    }
 }
 
+/* スマートフォン (480px以下) */
 @media (max-width: 480px) {
     .program-header {
         grid-template-columns: 60px 1fr;
@@ -598,13 +522,13 @@ body {
         font-size: 0.75rem;
     }
 
+    .songs-compact {
+        padding: 12px;
+    }
+
     .song-compact {
         font-size: 0.8rem;
         padding: 5px 0;
-    }
-
-    .songs-compact {
-        padding: 12px;
     }
 
     .day-header {
@@ -619,27 +543,4 @@ body {
     .stats-grid {
         grid-template-columns: 1fr;
     }
-}
-
-/* ===== その他の設定 ===== */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-dark);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-blue);
-}
-
-::selection {
-    background: var(--accent-blue);
-    color: var(--bg-dark);
 }
