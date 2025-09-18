@@ -4,9 +4,66 @@
 
 // ページが完全に読み込まれた後に初期化処理を実行
 document.addEventListener('DOMContentLoaded', function () {
-    initAnimations();   // アニメーション機能を初期化
-    initImageModal();   // 画像モーダル機能を初期化
+    initAnimations();
+    initImageModal();
+    initSimpleSlideshow();
 });
+
+/**
+ * シンプルスライドショー
+ */
+function initSimpleSlideshow() {
+    const images = document.querySelectorAll('.header-image');
+    const dots = document.querySelectorAll('.dot');
+    const slides = document.querySelector('.slides');
+
+    if (!images.length) return;
+
+    let current = 0;
+    let startX = 0;
+
+    // スライド表示
+    function showSlide(n) {
+        images[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (n + images.length) % images.length;
+        images[current].classList.add('active');
+        dots[current].classList.add('active');
+    }
+
+    // ドット クリック
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => showSlide(i));
+    });
+
+    // タッチ開始
+    slides.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+    }, { passive: true });
+
+    // タッチ終了
+    slides.addEventListener('touchend', e => {
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+
+        if (Math.abs(diff) > 50) {
+            showSlide(current + (diff > 0 ? 1 : -1));
+        }
+    }, { passive: true });
+
+    // マウス操作
+    slides.addEventListener('mousedown', e => {
+        startX = e.clientX;
+        const handleMouseUp = e2 => {
+            const diff = startX - e2.clientX;
+            if (Math.abs(diff) > 50) {
+                showSlide(current + (diff > 0 ? 1 : -1));
+            }
+            document.removeEventListener('mouseup', handleMouseUp);
+        };
+        document.addEventListener('mouseup', handleMouseUp);
+    });
+}
 
 /**
  * 基本アニメーション機能の初期化
