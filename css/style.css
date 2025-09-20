@@ -30,6 +30,7 @@ body {
     background: var(--bg-dark);
     color: var(--text-primary);
     margin: 0;
+    padding-top: 60px;
     line-height: 1.6;
 }
 
@@ -601,5 +602,9 @@ body {
 
     .stats-grid {
         grid-template-columns: 1fr;
+    }
+
+    .dropdown-item-text {
+        font-size: 0.65rem;
     }
 }
